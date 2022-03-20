@@ -1,6 +1,7 @@
 import unittest
 from varasto import Varasto
 
+
 class TestVarasto(unittest.TestCase):
     def setUp(self):
         self.varasto = Varasto(10)
@@ -38,8 +39,22 @@ class TestVarasto(unittest.TestCase):
         # varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
         self.assertAlmostEqual(self.varasto.paljonko_mahtuu(), 4)
 
-    def laita_liikaa_varastoon(self):
+    def test_laita_liikaa_varastoon(self):
         self.varasto.lisaa_varastoon(11)
+    
+        self.assertAlmostEqual(self.varasto.paljonko_mahtuu(), 0)
+
+    def test_ota_liikaa_varastosta(self):
+        self.varasto.ota_varastosta(11)
     
         self.assertAlmostEqual(self.varasto.paljonko_mahtuu(), 10)
 
+    def test_ota_negatiivinen(self):
+        self.varasto.ota_varastosta(-1)
+    
+        self.assertAlmostEqual(self.varasto.paljonko_mahtuu(), 10)
+
+    def test_lisää_negatiivinen(self):
+        self.varasto.lisaa_varastoon(-1)
+    
+        self.assertAlmostEqual(self.varasto.paljonko_mahtuu(), 10)
