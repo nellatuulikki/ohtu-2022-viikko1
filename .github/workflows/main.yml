@@ -1,29 +1,30 @@
-name:CI
+name: CI
 
 on:
-push:
-branches:[main]
-pull_request:
-branches:[main]
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-build:
-runs-on:ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-steps:
--uses:actions/checkout@v2
--name:SetupPython3.8
-uses:actions/setup-python@v2
-with:
-python-version:3.8
--name:InstallPoetry
-run:pipinstallpoetry
--name:Installdependencies
-run:poetryinstall
--name:Runtests
-run:poetryruncoveragerun--branch-mpytest
--name:Coveragereport
-run:poetryruncoveragexml
--name:CoveragereporttoCodecov
-uses:codecov/codecov-action@v2
-
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install Poetry
+        run: pip install poetry
+      - name: Install dependencies
+        run: poetry install
+      - name: Run tests
+        run: poetry run coverage run --branch -m pytest
+      - name: Coveragereport
+        run: poetry run coveragexml
+      - name: CoveragereporttoCodecov
+        uses: codecov/codecov-action@v2
+      - name: Run pylint
+        run: poetry run pylint src
