@@ -1,1 +1,1 @@
-exportPATH="$HOME/.profile/bin:$PATH"
+export PATH="$HOME/.profile/bin:$PATH"
