@@ -1,5 +1,8 @@
 *.tmp
 __pycache__
 *.pytest_cache
-*.bashrc
-*.pylintrc
+.bashrc
+.pylintrc
+.coverage
+.coveragerc
+htmlcov/
